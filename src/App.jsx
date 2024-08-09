@@ -38,6 +38,8 @@ function App() {
               element={<QuillEditor></QuillEditor>}
             ></Route>
           </Route>
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </>
