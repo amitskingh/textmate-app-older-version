@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: your-service-name
+    name: textmate
     env: static
     buildCommand: npm run build
     staticPublishPath: dist
