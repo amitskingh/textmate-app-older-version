@@ -20,9 +20,13 @@ function Home() {
         <h2>
           Welcome to <span className="home-textmate">Textmate</span>
           <br />
-          <h3 className="home-textmate-bottom">Your Ultimate Note-Taking Companion</h3>
+          <span className="home-textmate-bottom">
+            Your Ultimate Note-Taking Companion
+          </span>
         </h2>
-        <p className="display-6">Transforming the Way You Learn and Organize Information</p>
+        <p className="display-6">
+          Transforming the Way You Learn and Organize Information
+        </p>
         <p>
           Get Started Today Ready to revolutionize your note-taking experience?
           Sign up now and discover how Textmate can make your learning and
