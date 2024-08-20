@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import groupImage from "../assets/books.png"
 
 function Home() {
@@ -7,11 +7,6 @@ function Home() {
   const handleSignUpClick = (event) => {
     event.preventDefault()
     navigate("/login")
-  }
-
-  const handleGoToBook = (event) => {
-    event.preventDefault()
-    navigate("/books")
   }
 
   return (
@@ -33,12 +28,12 @@ function Home() {
           organization more efficient and enjoyable.
         </p>
         <div className="home-btn-container">
-          <button onClick={handleSignUpClick} className="btn btn-primary">
+          <Link to="/register" className="btn btn-primary">
             Sign Up
-          </button>
-          <button onClick={handleGoToBook} className="btn btn-outline-primary">
+          </Link>
+          <Link to="/books" className="btn btn-outline-primary">
             Go To Book
-          </button>
+          </Link>
         </div>
       </div>
       <div className="home-img-container">

@@ -1,82 +1,88 @@
-import { jwtDecode } from "jwt-decode"
-import { useLocation, useNavigate } from "react-router-dom"
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+
+const URL = import.meta.env.VITE_API_URL
 
 function Navbar() {
   const navigate = useNavigate()
+  const [username, setUsername] = useState()
 
-  const location = useLocation()
-  const hideNavbarPaths = ["/", "/not-found", "/login", "/register"]
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+        const response = await axios.get(`${URL}/api/v1/profile`, {
+          withCredentials: true,
+        })
+        setUsername(response.data.username)
+      } catch (error) {
+        if (error.response) {
+          if (error.response.status === 401) {
+            navigate("/login")
+          } else {
+            navigate("/")
+          }
+        }
+      }
+    }
 
-  let userName = "User"
-  let isTokenExpired = true
+    getProfile()
+  }, [])
 
-  if (localStorage.getItem("token")) {
-    const token = localStorage.getItem("token")
-
-    const response = jwtDecode(token)
-
-    const currentTime = Date.now() / 1000
-
-    isTokenExpired = response.exp < currentTime
-    userName = response.name
-  }
-
-  const handleLogout = (event) => {
+  const handleLogout = async (event) => {
     event.preventDefault()
-    localStorage.removeItem("token")
-    navigate("/")
-  }
 
-  const goToBook = () => {
-    navigate("/books")
+    try {
+      const response = await axios.get(`${URL}/api/v1/auth/logout`, {
+        withCredentials: true,
+      })
+      // console.log(response)
+      navigate("/")
+    } catch (error) {
+      // console.log(error)
+      navigate("/")
+    }
   }
 
   return (
-    <>
-      {!isTokenExpired && !hideNavbarPaths.includes(location.pathname) && (
-        <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-          <div className="container-fluid">
-            <span className="navbar-brand">{userName}</span>
+    <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+      <div className="container-fluid">
+        <span className="navbar-brand">{username}</span>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <Link
+                to="/books"
+                className="nav-link active go-to-book-btn"
+                aria-current="page"
+              >
+                Books
+              </Link>
+            </li>
+          </ul>
+          <form className="d-flex">
             <button
-              className="navbar-toggler"
+              onClick={handleLogout}
+              className="btn btn-primary"
               type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
             >
-              <span className="navbar-toggler-icon"></span>
+              Logout
             </button>
-            <div
-              className="collapse navbar-collapse"
-              id="navbarSupportedContent"
-            >
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                <li className="nav-item">
-                  <span
-                    onClick={goToBook}
-                    className="nav-link active go-to-book-btn"
-                    aria-current="page"
-                  >
-                    Books
-                  </span>
-                </li>
-              </ul>
-              <form className="d-flex">
-                <button
-                  onClick={handleLogout}
-                  className="btn btn-primary"
-                  type="submit"
-                >
-                  Logout
-                </button>
-              </form>
-            </div>
-          </div>
-        </nav>
-      )}
-    </>
+          </form>
+        </div>
+      </div>
+    </nav>
   )
 }
 
