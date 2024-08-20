@@ -2,7 +2,7 @@ import FormInfo from "./FormInfo"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
-${BACKEND_URL} = import.meta.env.VITE_API_URL
+const BACKEND_URL = import.meta.env.VITE_API_URL
 
 function Form() {
   const navigate = useNavigate()

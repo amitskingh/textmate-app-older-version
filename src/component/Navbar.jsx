@@ -2,7 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
-${BACKEND_URL} = import.meta.env.VITE_API_URL
+const BACKEND_URL = import.meta.env.VITE_API_URL
 
 function Navbar() {
   const navigate = useNavigate()

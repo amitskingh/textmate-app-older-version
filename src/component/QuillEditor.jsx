@@ -7,7 +7,7 @@ import "quill/dist/quill.snow.css"
 import { useNavigate, useParams } from "react-router-dom"
 import axios from "axios"
 
-${BACKEND_URL} = import.meta.env.VITE_API_URL
+const BACKEND_URL = import.meta.env.VITE_API_URL
 
 function QuillEditor() {
   const [range, setRange] = useState()

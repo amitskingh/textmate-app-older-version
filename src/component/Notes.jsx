@@ -5,7 +5,7 @@ import axios from "axios"
 import { IoCreateOutline } from "react-icons/io5"
 import { useNavigate } from "react-router-dom"
 
-${BACKEND_URL} = import.meta.env.VITE_API_URL
+const BACKEND_URL = import.meta.env.VITE_API_URL
 
 function Notes({ bookId }) {
   const navigate = useNavigate()

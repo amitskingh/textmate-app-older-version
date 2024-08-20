@@ -5,7 +5,7 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import CreateBook from "./CreateBook"
 
-${BACKEND_URL} = import.meta.env.VITE_API_URL
+const BACKEND_URL = import.meta.env.VITE_API_URL
 
 function Books() {
   const navigate = useNavigate()
