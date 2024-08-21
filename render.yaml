@@ -1,0 +1,8 @@
+services:
+  - type: static_site
+    name: textmate-frontend
+    buildCommand: npm run build
+    publishDirectory: dist
+    routes:
+      - src: /*
+        dest: /index.html
