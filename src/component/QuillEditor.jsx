@@ -6,6 +6,7 @@ import styles from "./QuillEditor.module.css"
 import "quill/dist/quill.snow.css"
 import { useNavigate, useParams } from "react-router-dom"
 import axios from "axios"
+import { getHeaders } from "./TokenManagement"
 
 const BACKEND_URL = import.meta.env.VITE_API_URL
 
@@ -25,11 +26,13 @@ function QuillEditor() {
   useEffect(() => {
     const getNote = async () => {
       try {
+        const headers = getHeaders()
         const { bookId, noteId } = req
         const response = await axios.get(
           `${BACKEND_URL}/api/v1/books/${bookId}/notes/${noteId}`,
           {
             withCredentials: true,
+            headers: headers,
           }
         )
 
@@ -59,12 +62,14 @@ function QuillEditor() {
     const content = JSON.stringify(quillRef.current.getContents())
 
     try {
+      const headers = getHeaders()
       const { bookId, noteId } = req
       const response = await axios.patch(
         `${BACKEND_URL}/api/v1/books/${bookId}/notes/${noteId}`,
         { title: title, content: content },
         {
           withCredentials: true,
+          headers: headers,
         }
       )
 

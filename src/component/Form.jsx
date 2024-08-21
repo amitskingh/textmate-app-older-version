@@ -1,6 +1,7 @@
 import FormInfo from "./FormInfo"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { setToken } from "./TokenManagement"
 
 const BACKEND_URL = import.meta.env.VITE_API_URL
 
@@ -28,6 +29,7 @@ function Form() {
         userInfo,
         { withCredentials: true }
       )
+      setToken(response.data.token)
       navigate("/books")
     } catch (error) {
       if (error.response.status === 401) {

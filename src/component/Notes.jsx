@@ -4,6 +4,7 @@ import axios from "axios"
 
 import { IoCreateOutline } from "react-icons/io5"
 import { useNavigate } from "react-router-dom"
+import { getHeaders } from "./TokenManagement"
 
 const BACKEND_URL = import.meta.env.VITE_API_URL
 
@@ -14,10 +15,17 @@ function Notes({ bookId }) {
   let [noteList, setNoteList] = useState([])
 
   const getAllNotes = async () => {
+    const headers = getHeaders()
+
     try {
-      const response = await axios.get(`${BACKEND_URL}/api/v1/books/${bookId}/notes`, {
-        withCredentials: true,
-      })
+      const headers = getHeaders()
+      const response = await axios.get(
+        `${BACKEND_URL}/api/v1/books/${bookId}/notes`,
+        {
+          withCredentials: true,
+          headers: headers,
+        }
+      )
       const totalNote = response.data
       const newNoteList = totalNote.map((item) => ({
         noteId: item._id,
@@ -43,9 +51,14 @@ function Notes({ bookId }) {
   const deleteNote = async (event, noteId) => {
     event.preventDefault()
     try {
-      await axios.delete(`${BACKEND_URL}/api/v1/books/${bookId}/notes/${noteId}`, {
-        withCredentials: true,
-      })
+      const headers = getHeaders()
+      await axios.delete(
+        `${BACKEND_URL}/api/v1/books/${bookId}/notes/${noteId}`,
+        {
+          withCredentials: true,
+          headers: headers,
+        }
+      )
       getAllNotes()
     } catch (error) {
       if (error.response.status === 401) {
@@ -61,6 +74,7 @@ function Notes({ bookId }) {
   const createNote = async (event) => {
     event.preventDefault()
     try {
+      const headers = getHeaders()
       const title = bookNameRef.current.value
       const response = await axios.post(
         `${BACKEND_URL}/api/v1/books/${bookId}/notes`,
@@ -70,6 +84,7 @@ function Notes({ bookId }) {
         },
         {
           withCredentials: true,
+          headers: headers,
         }
       )
 

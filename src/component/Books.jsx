@@ -4,6 +4,7 @@ import BookItem from "./BookItem"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import CreateBook from "./CreateBook"
+import { getHeaders } from "./TokenManagement"
 
 const BACKEND_URL = import.meta.env.VITE_API_URL
 
@@ -13,9 +14,11 @@ function Books() {
 
   const getAllBooks = async () => {
     try {
+      const headers = getHeaders()
       // console.log("Fetching books...")
       const response = await axios.get(`${BACKEND_URL}/api/v1/books`, {
         withCredentials: true,
+        headers: headers,
       })
       // console.log("Books fetched successfully:", response)
       const totalBook = response.data
@@ -46,9 +49,14 @@ function Books() {
   const handleDeleteButton = async (event, bookId) => {
     event.preventDefault()
     try {
-      const response = await axios.delete(`${BACKEND_URL}/api/v1/books/${bookId}`, {
-        withCredentials: true,
-      })
+      const headers = getHeaders()
+      const response = await axios.delete(
+        `${BACKEND_URL}/api/v1/books/${bookId}`,
+        {
+          withCredentials: true,
+          headers: headers,
+        }
+      )
       const newBookList = bookList.filter(
         (item) => item.bookId !== response.data._id
       )

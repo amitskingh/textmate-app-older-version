@@ -1,6 +1,8 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { clearToken } from "./TokenManagement"
+import { getHeaders } from "./TokenManagement"
 
 const BACKEND_URL = import.meta.env.VITE_API_URL
 
@@ -10,9 +12,11 @@ function Navbar() {
 
   useEffect(() => {
     const getProfile = async () => {
+      const headers = getHeaders()
       try {
         const response = await axios.get(`${BACKEND_URL}/api/v1/profile`, {
           withCredentials: true,
+          headers: headers,
         })
         setUsername(response.data.username)
       } catch (error) {
@@ -33,6 +37,7 @@ function Navbar() {
     event.preventDefault()
 
     try {
+      clearToken()
       const response = await axios.get(`${BACKEND_URL}/api/v1/auth/logout`, {
         withCredentials: true,
       })

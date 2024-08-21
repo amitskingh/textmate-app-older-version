@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useRef } from "react"
 import { useNavigate } from "react-router-dom"
+import { getHeaders } from "./TokenManagement"
 
 const BACKEND_URL = import.meta.env.VITE_API_URL
 
@@ -12,12 +13,14 @@ function CreateBook({ getAllBooks }) {
   const createNewBook = async (event) => {
     event.preventDefault()
     try {
+      const headers = getHeaders()
+
       await axios.post(
         `${BACKEND_URL}/api/v1/books/`,
         {
           subject: bookRef.current.value,
         },
-        { withCredentials: true }
+        { withCredentials: true, headers }
       )
 
       bookRef.current.value = ""
