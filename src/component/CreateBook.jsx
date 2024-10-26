@@ -51,7 +51,7 @@ function CreateBook({ getAllBooks }) {
           required
         />
         <button onClick={createNewBook} className="btn btn-success">
-          Create Book
+          Create Folder
         </button>
       </div>
     </>
