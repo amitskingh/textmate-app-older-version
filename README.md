@@ -10,8 +10,14 @@
    npm install  
    npm run dev  
    ```  
+3. Add the following line to your `.env` file:
+    ```bash
+   VITE_API_URL=http://localhost:3000
+   OR
+   VITE_API_URL=Your_Backend_Server_Link
+   ```
 
-3. Configure the backend by following the instructions provided at [Textmate Backend Old](https://github.com/amitskingh/textmate-app-backend-older-version).  
+4. Configure the backend by following the instructions provided at [Textmate Backend Old](https://github.com/amitskingh/textmate-app-backend-older-version).  
 
 ---
 
@@ -21,7 +27,7 @@
    ![Home Page Screenshot](public/screenshots/Home.png)
 2. **Login Page**  
    ![Login Page Screenshot](public/screenshots/Login.png)
-3. **Library View**  
+3. **Workspace View**  
    ![Library Screenshot](public/screenshots/Workspace.png)
 4. **Editor**  
    ![Editor Screenshot](public/screenshots/Editor.png)
